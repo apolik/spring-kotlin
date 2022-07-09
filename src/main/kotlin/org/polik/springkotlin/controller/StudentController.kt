@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/students")
 @AllArgsConstructor
 class StudentController(private val repository: StudentRepository) {
+    @GetMapping
+    fun getAll(): Collection<Student> {
+        return repository.getAll()
+    }
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int): Student {
         return repository.get(id)

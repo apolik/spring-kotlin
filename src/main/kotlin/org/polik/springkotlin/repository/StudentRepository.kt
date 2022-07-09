@@ -10,4 +10,6 @@ interface StudentRepository {
     fun update(student: Student, id: Int)
 
     fun delete(id: Int)
+
+    fun getAll(): Collection<Student>
 }

@@ -1,10 +1,21 @@
 package org.polik.springkotlin.model
 
-data class Student(val id: Int,
-                   val name: String,
-                   val age: Int,
-                   val grade: Int,
-                   val degree: Double) {
+import com.fasterxml.jackson.annotation.JsonIgnore
+
+data class Student(
+    var id: Int?,
+    var name: String,
+    var age: Int,
+    var grade: Int,
+    var degree: Double
+) {
+
+    constructor(name: String, age: Int, grade: Int, degree: Double) : this(null, name, age, grade, degree)
+
+    @JsonIgnore
+    fun isNew(): Boolean {
+        return id == null
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -18,6 +29,8 @@ data class Student(val id: Int,
     }
 
     override fun hashCode(): Int {
-        return id
+        return id ?: 0
     }
+
+
 }

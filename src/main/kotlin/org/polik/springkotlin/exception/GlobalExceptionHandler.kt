@@ -18,13 +18,18 @@ import javax.validation.ValidationException
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(ValidationException::class)
-    fun handleValidationException(): ResponseEntity<Error?>? {
+    fun handleValidationException(): ResponseEntity<ErrorInfo> {
         return createResponseEntity(HttpStatus.BAD_REQUEST, VALIDATION_MESSAGE)
     }
 
     @ExceptionHandler(NotFoundException::class)
-    fun handleNotFound(): ResponseEntity<Error?>? {
+    fun handleNotFound(): ResponseEntity<ErrorInfo> {
         return createResponseEntity(HttpStatus.NOT_FOUND, NOT_FOUND_MESSAGE)
+    }
+
+    @ExceptionHandler(IllegalStateException::class)
+    fun handleIllegalState(): ResponseEntity<ErrorInfo> {
+        return createResponseEntity(HttpStatus.BAD_REQUEST, VALIDATION_MESSAGE)
     }
 
     override fun handleMethodArgumentNotValid(
